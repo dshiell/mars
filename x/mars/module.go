@@ -3,7 +3,10 @@ package mars
 import (
 	"encoding/json"
 	"fmt"
+
 	// this line is used by starport scaffolding # 1
+
+	"context"
 
 	"github.com/gorilla/mux"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
@@ -11,14 +14,15 @@ import (
 
 	abci "github.com/tendermint/tendermint/abci/types"
 
+	"mars/x/mars/client/cli"
+	"mars/x/mars/keeper"
+	"mars/x/mars/types"
+
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	"mars/x/mars/client/cli"
-	"mars/x/mars/keeper"
-	"mars/x/mars/types"
 )
 
 var (
@@ -77,6 +81,7 @@ func (AppModuleBasic) RegisterRESTRoutes(clientCtx client.Context, rtr *mux.Rout
 
 // RegisterGRPCGatewayRoutes registers the gRPC Gateway routes for the module.
 func (AppModuleBasic) RegisterGRPCGatewayRoutes(clientCtx client.Context, mux *runtime.ServeMux) {
+	types.RegisterQueryHandlerClient(context.Background(), mux, types.NewQueryClient(clientCtx))
 	// this line is used by starport scaffolding # 2
 }
 
