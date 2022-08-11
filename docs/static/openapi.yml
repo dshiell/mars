@@ -30176,6 +30176,38 @@ paths:
           format: uint64
       tags:
         - Query
+  /mars/mars/hello:
+    get:
+      summary: Queries a list of Hello items.
+      operationId: MarsMarsHello
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              text:
+                type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
   /mars/mars/params:
     get:
       summary: Parameters queries the parameters of the module.
@@ -51597,6 +51629,11 @@ definitions:
   mars.mars.Params:
     type: object
     description: Params defines the parameters for the module.
+  mars.mars.QueryHelloResponse:
+    type: object
+    properties:
+      text:
+        type: string
   mars.mars.QueryParamsResponse:
     type: object
     properties:

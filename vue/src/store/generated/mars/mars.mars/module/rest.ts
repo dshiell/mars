@@ -14,6 +14,10 @@
  */
 export type MarsParams = object;
 
+export interface MarsQueryHelloResponse {
+  text?: string;
+}
+
 /**
  * QueryParamsResponse is response type for the Query/Params RPC method.
  */
@@ -229,6 +233,22 @@ export class HttpClient<SecurityDataType = unknown> {
  * @version version not set
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryHello
+   * @summary Queries a list of Hello items.
+   * @request GET:/mars/mars/hello
+   */
+  queryHello = (params: RequestParams = {}) =>
+    this.request<MarsQueryHelloResponse, RpcStatus>({
+      path: `/mars/mars/hello`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
   /**
    * No description
    *
